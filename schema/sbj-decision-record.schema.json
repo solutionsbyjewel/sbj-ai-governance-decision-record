@@ -1,0 +1,1159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:sbj:decision-record:schema:2.0.0",
+  "title": "SBJ AI Governance Decision Record V2.0 — Technical Schema 2.0.0",
+  "description": "Machine-readable implementation of the frozen SBJ V2.0 Decision Record specification. This schema does not modify LOCATE → ASSIGN → RECORD → SCALE.",
+  "$comment": "Public technical release packaging for the frozen SBJ Decision Record V2.0. Evidence and execution telemetry remain external and are referenced. No field requires chain-of-thought or inaccessible internal model state. This schema does not by itself establish regulatory compliance, completeness, or universal applicability.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_metadata",
+    "locate",
+    "assign",
+    "record",
+    "scale"
+  ],
+  "properties": {
+    "record_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_record_id",
+        "record_status",
+        "created_at",
+        "updated_at",
+        "generation_mode"
+      ],
+      "properties": {
+        "decision_record_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "record_status": {
+          "type": "string",
+          "enum": [
+            "DRAFT",
+            "ACTIVE",
+            "SUPERSEDED",
+            "CLOSED"
+          ]
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "generation_mode": {
+          "type": "string",
+          "enum": [
+            "HUMAN",
+            "MACHINE",
+            "HYBRID"
+          ]
+        }
+      }
+    },
+    "locate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "governed_subject",
+        "decision_event_type",
+        "governed_scope"
+      ],
+      "properties": {
+        "governed_subject": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "name"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          }
+        },
+        "decision_event_type": {
+          "$ref": "#/$defs/decisionEventType"
+        },
+        "governed_scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "scope_type",
+            "scope_identifier"
+          ],
+          "properties": {
+            "scope_type": {
+              "type": "string",
+              "enum": [
+                "SYSTEM",
+                "USE_CASE",
+                "EXECUTION_CLASS",
+                "EXECUTION_INSTANCE",
+                "ACTION_CLASS",
+                "CAPABILITY",
+                "ENVIRONMENT",
+                "DEPLOYMENT",
+                "WORKFLOW",
+                "FLEET",
+                "OTHER"
+              ]
+            },
+            "scope_identifier": {
+              "$ref": "#/$defs/reference"
+            },
+            "environment": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            },
+            "scope_boundary": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            }
+          }
+        },
+        "execution_instance_ref": {
+          "$ref": "#/$defs/reference"
+        }
+      }
+    },
+    "assign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accountable_authority"
+      ],
+      "properties": {
+        "accountable_authority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "authority_type",
+            "authority_identifier"
+          ],
+          "properties": {
+            "authority_type": {
+              "type": "string",
+              "enum": [
+                "PERSON",
+                "ROLE",
+                "FUNCTION",
+                "ORGANIZATION",
+                "AUTHORIZED_AUTOMATED_CONTROL",
+                "OTHER"
+              ]
+            },
+            "authority_identifier": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "authority_reference": {
+              "$ref": "#/$defs/reference"
+            }
+          }
+        },
+        "authority_source": {
+          "$ref": "#/$defs/reference"
+        },
+        "delegated_authority_ref": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/reference"
+          }
+        },
+        "evidence_sufficiency_authority": {
+          "$ref": "#/$defs/reference"
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_disposition",
+        "decision_time",
+        "evidence_refs",
+        "evidence_sufficiency"
+      ],
+      "properties": {
+        "decision_disposition": {
+          "$ref": "#/$defs/decisionDisposition"
+        },
+        "decision_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidenceReference"
+          }
+        },
+        "evidence_sufficiency": {
+          "$ref": "#/$defs/evidenceSufficiency"
+        },
+        "authorization_state_change": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "previous_state",
+            "new_state"
+          ],
+          "properties": {
+            "previous_state": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            },
+            "new_state": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            }
+          }
+        },
+        "trigger_source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "trigger_type",
+            "trigger_ref"
+          ],
+          "properties": {
+            "trigger_type": {
+              "type": "string",
+              "enum": [
+                "MONITORING",
+                "INCIDENT",
+                "TEST",
+                "VALIDATION",
+                "ENVIRONMENT_CHANGE",
+                "CONFIGURATION_CHANGE",
+                "AUTHORITY_CHANGE",
+                "EVIDENCE_CHANGE",
+                "HUMAN_REPORT",
+                "PROVIDER_NOTICE",
+                "OTHER"
+              ]
+            },
+            "trigger_ref": {
+              "$ref": "#/$defs/reference"
+            }
+          }
+        },
+        "trigger_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "authorization_change_effective_time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "material_configuration_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "transformation_provenance_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "environment_state_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "governable_context_ref": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/reference"
+          }
+        },
+        "corrective_action_ref": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ref",
+            "status"
+          ],
+          "properties": {
+            "ref": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 512
+            },
+            "uri": {
+              "type": "string",
+              "format": "uri-reference"
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "PLANNED",
+                "IN_PROGRESS",
+                "COMPLETED",
+                "VALIDATED",
+                "FAILED",
+                "OTHER"
+              ]
+            }
+          }
+        },
+        "restart_resumption_decision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "RESTART_APPROVED",
+                "RESTART_APPROVED_WITH_CONDITIONS",
+                "RESTART_DENIED",
+                "RESUMPTION_APPROVED",
+                "RESUMPTION_APPROVED_WITH_CONDITIONS",
+                "RESUMPTION_DENIED",
+                "ADDITIONAL_VALIDATION_REQUIRED",
+                "ADDITIONAL_EVIDENCE_REQUIRED"
+              ]
+            },
+            "evidence_refs": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/reference"
+              }
+            }
+          }
+        },
+        "transition_authorization_ref": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "origin",
+            "destination",
+            "authorization_ref"
+          ],
+          "properties": {
+            "origin": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            },
+            "destination": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            },
+            "authorization_ref": {
+              "$ref": "#/$defs/reference"
+            }
+          }
+        },
+        "consequential_action_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "committed_consequence_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "execution_recurrence_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "execution_lineage_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "permission_authority_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "downstream_execution_ref": {
+          "$ref": "#/$defs/reference"
+        }
+      }
+    },
+    "scale": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scale_determination"
+      ],
+      "properties": {
+        "scale_determination": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "determinations",
+            "scope_ref"
+          ],
+          "properties": {
+            "determinations": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "enum": [
+                  "SINGLE_DECISION",
+                  "SINGLE_EXECUTION",
+                  "EXECUTION_CLASS",
+                  "USE_CASE",
+                  "WORKFLOW",
+                  "DEPLOYMENT",
+                  "SYSTEM",
+                  "AGENT_CLASS",
+                  "ENVIRONMENT",
+                  "FLEET",
+                  "BUSINESS_PROCESS",
+                  "CONTROL_FAMILY",
+                  "ORGANIZATION",
+                  "CROSS_ORGANIZATION",
+                  "OTHER"
+                ]
+              }
+            },
+            "scope_ref": {
+              "$ref": "#/$defs/reference"
+            }
+          }
+        },
+        "reassessment_condition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "condition_type",
+            "condition"
+          ],
+          "properties": {
+            "condition_type": {
+              "type": "string",
+              "enum": [
+                "DATE",
+                "EVENT",
+                "EVIDENCE",
+                "CONFIGURATION_CHANGE",
+                "ENVIRONMENT_CHANGE",
+                "INCIDENT",
+                "REMEDIATION",
+                "TRANSITION",
+                "AUTHORITY_CHANGE",
+                "OTHER"
+              ]
+            },
+            "condition": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            },
+            "due_expiration": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "responsible_authority": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512
+                },
+                {
+                  "$ref": "#/$defs/reference"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref"
+      ],
+      "properties": {
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "decisionEventType": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "INITIAL_AUTHORIZATION",
+            "AUTHORIZATION_CHANGE",
+            "TRANSITION",
+            "EXCEPTION",
+            "SUSPENSION",
+            "REVOCATION",
+            "RESTART",
+            "RESUMPTION",
+            "AUTHORITY_RESTORATION",
+            "INCIDENT_DISPOSITION",
+            "MATERIAL_GOVERNANCE_REVIEW",
+            "OTHER"
+          ]
+        },
+        "other_description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "code": {
+                "const": "OTHER"
+              }
+            },
+            "required": [
+              "code"
+            ]
+          },
+          "then": {
+            "required": [
+              "other_description"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "code": {
+                "not": {
+                  "const": "OTHER"
+                }
+              }
+            },
+            "required": [
+              "code"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "other_description"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "decisionDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "AUTHORIZED",
+            "AUTHORIZED_WITH_CONDITIONS",
+            "CONTINUE",
+            "CONTINUE_WITH_NARROWED_AUTHORITY",
+            "SUSPEND",
+            "REVOKE",
+            "DENY",
+            "TRANSITION_APPROVED",
+            "TRANSITION_APPROVED_WITH_CONDITIONS",
+            "TRANSITION_DENIED",
+            "RESTART_APPROVED",
+            "RESTART_APPROVED_WITH_CONDITIONS",
+            "RESTART_DENIED",
+            "RESUMPTION_APPROVED",
+            "RESUMPTION_APPROVED_WITH_CONDITIONS",
+            "RESUMPTION_DENIED",
+            "AUTHORITY_RESTORED",
+            "AUTHORITY_PARTIALLY_RESTORED",
+            "ADDITIONAL_EVIDENCE_REQUIRED",
+            "CORRECTIVE_ACTION_REQUIRED",
+            "ESCALATED",
+            "CLOSED_NO_FURTHER_ACTION",
+            "OTHER"
+          ]
+        },
+        "other_description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "code": {
+                "const": "OTHER"
+              }
+            },
+            "required": [
+              "code"
+            ]
+          },
+          "then": {
+            "required": [
+              "other_description"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+           "code": {
+                "not": {
+                  "const": "OTHER"
+                }
+              }
+            },
+            "required": [
+              "code"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "other_description"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref"
+      ],
+      "properties": {
+        "ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri-reference"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "TEST",
+            "VALIDATION",
+            "MONITORING",
+            "AUDIT",
+            "INCIDENT",
+            "CONFIGURATION",
+            "PROVIDER",
+            "ASSURANCE",
+            "OPERATIONAL",
+            "SAFETY",
+            "REGULATORY",
+            "OTHER"
+          ]
+        }
+      }
+    },
+    "evidenceSufficiency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "determination"
+      ],
+      "properties": {
+        "determination": {
+          "type": "string",
+          "enum": [
+            "SUFFICIENT",
+            "SUFFICIENT_WITH_LIMITATIONS",
+            "INSUFFICIENT",
+            "CONFLICTING",
+            "INCOMPLETE",
+            "STALE",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "limitation_reason_ref": {
+          "$ref": "#/$defs/reference"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "locate": {
+            "properties": {
+              "decision_event_type": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "TRANSITION"
+                    ]
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            },
+            "required": [
+              "decision_event_type"
+            ]
+          }
+        },
+        "required": [
+          "locate"
+        ]
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "required": [
+              "transition_authorization_ref"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "locate": {
+            "properties": {
+              "decision_event_type": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "AUTHORIZATION_CHANGE",
+                      "SUSPENSION",
+                      "REVOCATION",
+                      "AUTHORITY_RESTORATION"
+                    ]
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            },
+            "required": [
+              "decision_event_type"
+            ]
+          }
+        },
+        "required": [
+          "locate"
+        ]
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "required": [
+              "authorization_state_change"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "locate": {
+            "properties": {
+              "decision_event_type": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "AUTHORIZATION_CHANGE"
+                    ]
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            },
+            "required": [
+              "decision_event_type"
+            ]
+          }
+        },
+        "required": [
+          "locate"
+        ]
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "required": [
+              "trigger_source"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "locate": {
+            "properties": {
+              "decision_event_type": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "RESTART",
+                      "RESUMPTION"
+                    ]
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            },
+            "required": [
+              "decision_event_type"
+            ]
+          }
+        },
+        "required": [
+          "locate"
+        ]
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "required": [
+              "restart_resumption_decision"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "locate": {
+            "properties": {
+              "decision_event_type": {
+                "properties": {
+                  "code": {
+                    "const": "RESTART"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "properties": {
+              "restart_resumption_decision": {
+                "properties": {
+                  "decision": {
+                    "not": {
+                      "enum": [
+                        "RESUMPTION_APPROVED",
+                        "RESUMPTION_APPROVED_WITH_CONDITIONS",
+                        "RESUMPTION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              },
+              "decision_disposition": {
+                "properties": {
+                  "code": {
+                    "not": {
+                      "enum": [
+                        "RESUMPTION_APPROVED",
+                        "RESUMPTION_APPROVED_WITH_CONDITIONS",
+                        "RESUMPTION_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "locate": {
+            "properties": {
+              "decision_event_type": {
+                "properties": {
+                  "code": {
+                    "const": "RESUMPTION"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "properties": {
+              "restart_resumption_decision": {
+                "properties": {
+                  "decision": {
+                    "not": {
+                      "enum": [
+                        "RESTART_APPROVED",
+                        "RESTART_APPROVED_WITH_CONDITIONS",
+                        "RESTART_DENIED"
+                      ]
+                    }
+                  }
+                }
+              },
+              "decision_disposition": {
+                "properties": {
+                  "code": {
+                    "not": {
+                      "enum": [
+                        "RESTART_APPROVED",
+                        "RESTART_APPROVED_WITH_CONDITIONS",
+                        "RESTART_DENIED"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record": {
+            "properties": {
+              "decision_disposition": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "TRANSITION_APPROVED",
+                      "TRANSITION_APPROVED_WITH_CONDITIONS",
+                      "TRANSITION_DENIED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "required": [
+              "transition_authorization_ref"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record": {
+            "properties": {
+              "decision_disposition": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "RESTART_APPROVED",
+                      "RESTART_APPROVED_WITH_CONDITIONS",
+                      "RESTART_DENIED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "required": [
+              "restart_resumption_decision"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record": {
+            "properties": {
+              "decision_disposition": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "RESUMPTION_APPROVED",
+                      "RESUMPTION_APPROVED_WITH_CONDITIONS",
+                      "RESUMPTION_DENIED"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "record": {
+            "required": [
+              "restart_resumption_decision"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "record": {
+            "properties": {
+              "decision_disposition": {
+                "properties": {
+                  "code": {
+                    "enum": [
+                      "AUTHORIZED_WITH_CONDITIONS",
+                      "TRANSITION_APPROVED_WITH_CONDITIONS",
+                      "RESTART_APPROVED_WITH_CONDITIONS",
+                      "RESUMPTION_APPROVED_WITH_CONDITIONS"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scale": {
+            "required": [
+              "reassessment_condition"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

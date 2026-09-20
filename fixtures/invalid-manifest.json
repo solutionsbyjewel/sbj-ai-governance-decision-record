@@ -1,0 +1,15 @@
+{
+  "schema_id":"urn:sbj:decision-record:schema:2.0.0",
+  "fixtures":[
+    {"fixture":"invalid/01-missing-core-field.json","activated_profiles":[],"expected_validation":"FAIL","expected_rule":"schema.required","explanation":"Missing canonical core field record.evidence_sufficiency."},
+    {"fixture":"invalid/02-invalid-enumeration.json","activated_profiles":[],"expected_validation":"FAIL","expected_rule":"schema.enum","explanation":"decision_event_type is outside the frozen controlled enumeration."},
+    {"fixture":"invalid/03-malformed-timestamp.json","activated_profiles":[],"expected_validation":"FAIL","expected_rule":"schema.format","explanation":"decision_time is not ISO 8601 date-time."},
+    {"fixture":"invalid/04-profile-c-missing-required-conditional.json","activated_profiles":["C"],"expected_validation":"FAIL","expected_rule":"profile.C.hard_requirement","explanation":"Profile C is externally activated but consequential_action_ref is missing."},
+    {"fixture":"invalid/05-forbidden-effective-context-state.json","activated_profiles":[],"expected_validation":"FAIL","expected_rule":"schema.additionalProperties","explanation":"Closed schema rejects unauthorized Effective Context State field."},
+    {"fixture":"invalid/06-embedded-secret-field.json","activated_profiles":[],"expected_validation":"FAIL","expected_rule":"schema.additionalProperties","explanation":"Closed schema rejects structurally detectable secret/credential field. Content scanning of allowed strings is outside JSON Schema."},
+    {"fixture":"invalid/07-invalid-evidence-reference.json","activated_profiles":[],"expected_validation":"FAIL","expected_rule":"schema.required","explanation":"Evidence reference object lacks required ref."},
+    {"fixture":"invalid/08-inconsistent-restart-resumption.json","activated_profiles":["A","E","F"],"expected_validation":"FAIL","expected_rule":"DR-X05","explanation":"RESTART event cannot carry RESUMPTION_* restart/resumption decision."},
+    {"fixture":"invalid/09-transition-missing-authorization-reference.json","activated_profiles":["E"],"expected_validation":"FAIL","expected_rule":"DR-X01","explanation":"TRANSITION event requires transition_authorization_ref."},
+    {"fixture":"invalid/10-authorization-change-missing-state-data.json","activated_profiles":["A","C"],"expected_validation":"FAIL","expected_rule":"DR-X02","explanation":"AUTHORIZATION_CHANGE requires authorization_state_change."}
+  ]
+}

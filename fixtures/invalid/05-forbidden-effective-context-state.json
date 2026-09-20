@@ -1,0 +1,7 @@
+{
+  "record_metadata":{"decision_record_id":"DR-A-001","record_status":"ACTIVE","created_at":"2026-09-19T18:00:00-04:00","updated_at":"2026-09-19T18:05:00-04:00","generation_mode":"HUMAN"},
+  "locate":{"governed_subject":{"id":"GEN-ASSIST-01","name":"Internal Drafting Assistant"},"decision_event_type":{"code":"INITIAL_AUTHORIZATION"},"governed_scope":{"scope_type":"USE_CASE","scope_identifier":{"ref":"GEN-ASSIST-01"}}},
+  "assign":{"accountable_authority":{"authority_type":"ROLE","authority_identifier":"AI Use-Case Owner"}},
+  "record":{"decision_disposition":{"code":"AUTHORIZED"},"decision_time":"2026-09-19T18:03:00-04:00","evidence_refs":[{"ref":"POLICY-ASSIST-001","evidence_type":"VALIDATION"}],"evidence_sufficiency":{"determination":"SUFFICIENT"},"effective_context_state":{"value":"claimed"}},
+  "scale":{"scale_determination":{"determinations":["USE_CASE"],"scope_ref":{"ref":"GEN-ASSIST-01"}}}
+}

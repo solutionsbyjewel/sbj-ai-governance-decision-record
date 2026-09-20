@@ -1,0 +1,7 @@
+{
+  "record_metadata":{"decision_record_id":"DR-G-001","record_status":"ACTIVE","created_at":"2026-09-19T18:00:00-04:00","updated_at":"2026-09-19T18:05:00-04:00","generation_mode":"HYBRID"},
+  "locate":{"governed_subject":{"id":"SR-AI-01","name":"Shared-Responsibility Enterprise AI Service"},"decision_event_type":{"code":"MATERIAL_GOVERNANCE_REVIEW"},"governed_scope":{"scope_type":"DEPLOYMENT","scope_identifier":{"ref":"SR-AI-01-PROD"}}},
+  "assign":{"accountable_authority":{"authority_type":"ROLE","authority_identifier":"Enterprise AI Governance Owner"},"authority_source":{"ref":"ENTERPRISE-AI-AUTH-POLICY-03"},"evidence_sufficiency_authority":{"ref":"AI-ASSURANCE-FUNCTION-01"}},
+  "record":{"decision_disposition":{"code":"CONTINUE"},"decision_time":"2026-09-19T18:03:00-04:00","evidence_refs":[{"ref":"PROVIDER-ASSURANCE-2026Q3","evidence_type":"VALIDATION"},{"ref":"CUSTOMER-CONTROL-TEST-18","evidence_type":"VALIDATION"}],"evidence_sufficiency":{"determination":"SUFFICIENT_WITH_LIMITATIONS"},"material_configuration_ref":{"ref":"PROVIDER-MODEL-CONFIG-REF-202609"},"governable_context_ref":[{"ref":"PROVIDER-SERVICE-CONTROLS-REF"},{"ref":"CUSTOMER-OPERATING-POLICY-REF"}]},
+  "scale":{"scale_determination":{"determinations":["DEPLOYMENT"],"scope_ref":{"ref":"SR-AI-01-PROD"}},"reassessment_condition":{"condition_type":"EVIDENCE","condition":{"ref":"NEXT-PROVIDER-ASSURANCE-REVIEW"}}}
+}

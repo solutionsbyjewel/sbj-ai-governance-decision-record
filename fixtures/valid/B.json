@@ -1,0 +1,7 @@
+{
+  "record_metadata":{"decision_record_id":"DR-B-001","record_status":"ACTIVE","created_at":"2026-09-19T18:00:00-04:00","updated_at":"2026-09-19T18:05:00-04:00","generation_mode":"HYBRID"},
+  "locate":{"governed_subject":{"id":"DS-011","name":"Clinical Decision-Support System"},"decision_event_type":{"code":"MATERIAL_GOVERNANCE_REVIEW"},"governed_scope":{"scope_type":"USE_CASE","scope_identifier":{"ref":"DS-011"}}},
+  "assign":{"accountable_authority":{"authority_type":"ROLE","authority_identifier":"Clinical AI Governance Owner"},"evidence_sufficiency_authority":{"ref":"CLINICAL-ASSURANCE-FUNCTION"}},
+  "record":{"decision_disposition":{"code":"CONTINUE_WITH_NARROWED_AUTHORITY"},"decision_time":"2026-09-19T18:03:00-04:00","evidence_refs":[{"ref":"VAL-DS-011","evidence_type":"VALIDATION"},{"ref":"HUMAN-REVIEW-POLICY-02","evidence_type":"VALIDATION"}],"evidence_sufficiency":{"determination":"SUFFICIENT_WITH_LIMITATIONS"},"material_configuration_ref":{"ref":"CFG-DS-011-R7"},"governable_context_ref":[{"ref":"CLINICAL-POLICY-CONTEXT-12"}],"environment_state_ref":{"ref":"ENV-CLINICAL-PROD-STATE-0919"},"consequential_action_ref":{"ref":"HUMAN-DECISION-CLASS-CLINICAL-REVIEW"}},
+  "scale":{"scale_determination":{"determinations":["USE_CASE"],"scope_ref":{"ref":"DS-011"}}}
+}

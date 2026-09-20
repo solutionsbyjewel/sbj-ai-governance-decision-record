@@ -1,0 +1,7 @@
+{
+  "record_metadata":{"decision_record_id":"DR-C-001","record_status":"ACTIVE","created_at":"2026-09-19T18:00:00-04:00","updated_at":"2026-09-19T18:05:00-04:00","generation_mode":"HYBRID"},
+  "locate":{"governed_subject":{"id":"AG-AP-017","name":"Autonomous Accounts-Payable Agent"},"decision_event_type":{"code":"INITIAL_AUTHORIZATION"},"governed_scope":{"scope_type":"DEPLOYMENT","scope_identifier":{"ref":"AG-AP-017-PROD"}},"execution_instance_ref":{"ref":"EXEC-AP-017-CLASS"}},
+  "assign":{"accountable_authority":{"authority_type":"ROLE","authority_identifier":"AP Automation Control Owner"},"authority_source":{"ref":"FIN-AUTH-001"}},
+  "record":{"decision_disposition":{"code":"AUTHORIZED"},"decision_time":"2026-09-19T18:03:00-04:00","evidence_refs":[{"ref":"AUTH-TEST-AP-017","evidence_type":"VALIDATION"},{"ref":"CFG-VAL-AP-017","evidence_type":"VALIDATION"}],"evidence_sufficiency":{"determination":"SUFFICIENT"},"material_configuration_ref":{"ref":"CFG-AP-017-R2"},"permission_authority_ref":{"ref":"PAYMENT-AUTH-PROFILE-L2"}},
+  "scale":{"scale_determination":{"determinations":["DEPLOYMENT"],"scope_ref":{"ref":"AG-AP-017-PROD"}}}
+}

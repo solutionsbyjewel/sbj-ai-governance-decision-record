@@ -1,0 +1,14 @@
+{
+  "schema_id":"urn:sbj:decision-record:schema:2.0.0",
+  "rules":[
+    {"id":"DR-X01","encoded_in_schema":true,"rule":"decision_event_type TRANSITION requires transition_authorization_ref","source":"Transition profile / field 23"},
+    {"id":"DR-X02","encoded_in_schema":true,"rule":"AUTHORIZATION_CHANGE, SUSPENSION, REVOCATION, or AUTHORITY_RESTORATION requires authorization_state_change","source":"field 13 trigger"},
+    {"id":"DR-X03","encoded_in_schema":true,"rule":"AUTHORIZATION_CHANGE requires trigger_source","source":"Profile A + field 14 trigger"},
+    {"id":"DR-X04","encoded_in_schema":true,"rule":"RESTART or RESUMPTION requires restart_resumption_decision","source":"field 22 trigger"},
+    {"id":"DR-X05","encoded_in_schema":true,"rule":"RESTART cannot carry a RESUMPTION_* restart/resumption decision or top-level disposition; RESUMPTION cannot carry RESTART_* values","source":"field 22 semantics and controlled disposition families"},
+    {"id":"DR-X06","encoded_in_schema":true,"rule":"TRANSITION_* disposition requires transition_authorization_ref","source":"field 23 semantics"},
+    {"id":"DR-X07","encoded_in_schema":true,"rule":"RESTART_* or RESUMPTION_* disposition requires restart_resumption_decision","source":"field 22 semantics"},
+    {"id":"DR-X08","encoded_in_schema":true,"rule":"Explicit *_WITH_CONDITIONS disposition requires reassessment_condition","source":"field 31 trigger: determination is conditional"},
+    {"id":"DR-P01","encoded_in_schema":false,"rule":"Profile materiality activation is external governance context and must not be inferred from mere field presence or ordinary telemetry. Validator may receive activated profile IDs separately.","source":"approved profile activation logic"}
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "record_metadata": {"decision_record_id":"DR-E-001","record_status":"ACTIVE","created_at":"2026-09-19T18:00:00-04:00","updated_at":"2026-09-19T18:05:00-04:00","generation_mode":"HYBRID"},
+  "locate":{"governed_subject":{"id":"PA-VISION-07","name":"Warehouse Vision Guidance System"},"decision_event_type":{"code":"MATERIAL_GOVERNANCE_REVIEW"},"governed_scope":{"scope_type":"SYSTEM","scope_identifier":{"ref":"PA-VISION-07"}}},
+  "assign":{"accountable_authority":{"authority_type":"ROLE","authority_identifier":"Warehouse Safety Governance Owner"}},
+  "record":{"decision_disposition":{"code":"CONTINUE"},"decision_time":"2026-09-19T18:03:00-04:00","evidence_refs":[{"ref":"SAFETY-VAL-PA-07","evidence_type":"VALIDATION"},{"ref":"OPERATOR-RELIANCE-TEST-04","evidence_type":"VALIDATION"}],"evidence_sufficiency":{"determination":"SUFFICIENT"},"material_configuration_ref":{"ref":"CFG-PA-VISION-07-R4"},"environment_state_ref":{"ref":"WAREHOUSE-ENV-STATE-20260919"},"governable_context_ref":[{"ref":"OPERATOR-GUIDANCE-POLICY-07"}],"consequential_action_ref":{"ref":"OPERATOR-GUIDANCE-ACTION-CLASS"}},
+  "scale":{"scale_determination":{"determinations":["SYSTEM"],"scope_ref":{"ref":"PA-VISION-07"}}}
+}

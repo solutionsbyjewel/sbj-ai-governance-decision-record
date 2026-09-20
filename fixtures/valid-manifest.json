@@ -1,0 +1,13 @@
+{
+  "schema_id":"urn:sbj:decision-record:schema:2.0.0",
+  "fixtures":[
+    {"fixture":"valid/A.json","scenario":"A","activated_profiles":[],"expected_validation":"PASS","trigger_explanation":"Low-consequence generative assistance; canonical core only. No conditional profile is necessary from the stated facts."},
+    {"fixture":"valid/B.json","scenario":"B","activated_profiles":["C"],"expected_validation":"PASS","trigger_explanation":"High-consequence human decision support materially contributes to a consequential human decision. Profile C applies; consequence is linked without treating human mediation as eliminating governance relevance."},
+    {"fixture":"valid/C.json","scenario":"C","activated_profiles":["C"],"expected_validation":"PASS","trigger_explanation":"Autonomous enterprise agent performs consequential digital execution. Profile C applies."},
+    {"fixture":"valid/D.json","scenario":"D","activated_profiles":["B","C"],"expected_validation":"PASS","trigger_explanation":"Delegated multi-agent workflow with consequential execution. Profiles B and C apply."},
+    {"fixture":"valid/E.json","scenario":"E","activated_profiles":["C","D"],"expected_validation":"PASS","trigger_explanation":"Physical AI perception is material and human reliance can produce consequential operational effect. Profiles C and D apply; direct actuation is not assumed."},
+    {"fixture":"valid/F.json","scenario":"F","activated_profiles":["C","D"],"expected_validation":"PASS","trigger_explanation":"Directly actuated Physical AI produces material physical effects. Profiles C and D apply."},
+    {"fixture":"valid/G.json","scenario":"G","activated_profiles":["G"],"expected_validation":"PASS","trigger_explanation":"Governance responsibility and evidence dependency are divided between provider/customer roles. Profile G applies."},
+    {"fixture":"valid/H.json","scenario":"H","activated_profiles":["A","E","F"],"expected_validation":"PASS","trigger_explanation":"Material incident caused suspension and governed restart across an authorization boundary. Profiles A, E, and F apply."}
+  ]
+}
