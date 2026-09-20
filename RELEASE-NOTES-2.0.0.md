@@ -35,4 +35,10 @@ Profile activation remains external governance/policy context. The canonical Dec
 
 ## Canonical resource
 
-The Solutions by Jewel website remains the canonical methodology/resource destination. Final canonical and practitioner download URLs will be inserted before publication.
+The Solutions by Jewel website remains the canonical methodology/resource destination.
+
+Canonical resource: https://solutionsbyjewel.com/ai-governance/decision-record/
+
+Practitioner reference: https://solutionsbyjewel.com/ai-governance/decision-record/sbj-ai-governance-decision-record-v2-practitioner-reference.pdf
+
+Fillable governance template: https://solutionsbyjewel.com/ai-governance/decision-record/sbj-ai-governance-decision-record-v2-template.docx
