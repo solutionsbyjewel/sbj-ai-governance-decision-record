@@ -6,6 +6,8 @@
   "methodology": "LOCATE → ASSIGN → RECORD → SCALE",
   "canonical_website_url": "https://solutionsbyjewel.com/ai-governance/decision-record/",
   "practitioner_artifact_public_url": "https://solutionsbyjewel.com/ai-governance/decision-record/sbj-ai-governance-decision-record-v2-practitioner-reference.pdf",
+  "fillable_artifact_public_url": "https://solutionsbyjewel.com/ai-governance/decision-record/sbj-ai-governance-decision-record-v2-template.docx",
+  "repository_url": "https://github.com/solutionsbyjewel/sbj-ai-governance-decision-record",
   "files": [
     "CHANGELOG.md",
     "CONTRIBUTING.md",
